@@ -15,4 +15,4 @@ func _process(delta):
 	
 	if Input.is_action_just_pressed("ui_accept"):
 		emit_signal("create_bullet", bullet, global_position)
-
+	

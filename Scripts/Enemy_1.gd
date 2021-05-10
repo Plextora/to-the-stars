@@ -24,3 +24,5 @@ func _on_Hitbox_area_entered(area):
 		emit_signal("create_enemy_kill_particles", particles, global_position)
 		area.get_parent().queue_free()
 		queue_free()
+	if area.is_in_group("Player"):
+		get_tree().change_scene("res://Scenes/game over.tscn")

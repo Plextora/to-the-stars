@@ -19,6 +19,7 @@ Global="*res://Scripts/Global.gd"
 UserData="*res://addons/github-integration/scripts/user_data.gd"
 IconLoaderGithub="*res://addons/github-integration/scripts/IconLoaderGithub.gd"
 RestHandler="*res://addons/github-integration/scripts/RestHandler.gd"
+Pause="*res://Scenes/Pause.tscn"
 
 [display]
 
