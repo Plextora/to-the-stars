@@ -1,0 +1,38 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Fonts/pixelated.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Scripts/Result.gd" type="Script" id=2]
+
+[sub_resource type="DynamicFont" id=2]
+font_data = ExtResource( 1 )
+
+[node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource( 2 )
+
+[node name="ScoreBox" type="MarginContainer" parent="."]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -14.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ScoreBox"]
+margin_right = 160.0
+margin_bottom = 14.0
+
+[node name="Score" type="Label" parent="ScoreBox"]
+margin_right = 160.0
+margin_bottom = 14.0
+
+[node name="Label" type="Label" parent="ScoreBox/Score"]
+margin_left = 52.0
+margin_top = -7.0
+margin_right = 103.0
+margin_bottom = 11.0
+custom_fonts/font = SubResource( 2 )
+text = "Score:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
