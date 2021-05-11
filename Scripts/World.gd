@@ -1,6 +1,18 @@
 extends Node2D
 
 
+var time = 0
+
+func _on_World_tree_entered():
+	time = 0
+
+func _process(delta):
+	time += delta
+
+func get_time():
+	return time
+
+
 func _ready():
 	Global.world = self
 
@@ -22,3 +34,4 @@ func _on_Enemy_Gen_create_enemy(enemy, location):
 	var enemy_instance = enemy.instance()
 	add_child(enemy_instance)
 	enemy_instance.global_position = location
+

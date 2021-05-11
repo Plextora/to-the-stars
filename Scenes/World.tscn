@@ -27,5 +27,6 @@ position = Vector2( 77, 41 )
 stream = ExtResource( 5 )
 autoplay = true
 
+[connection signal="tree_entered" from="." to="." method="_on_World_tree_entered"]
 [connection signal="create_bullet" from="Player" to="." method="_on_Player_create_bullet"]
 [connection signal="create_enemy" from="Enemy_Gen" to="." method="_on_Enemy_Gen_create_enemy"]

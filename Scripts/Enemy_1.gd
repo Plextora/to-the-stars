@@ -8,6 +8,7 @@ signal create_enemy_kill_particles(particles, location)
 
 
 func _ready():
+	GlobalWorld.time = 0
 	if Global.world != null:
 		connect("create_enemy_kill_particles", Global.world, "_on_Create_enemy_kill_particles")
 
@@ -16,6 +17,7 @@ func _process(delta):
 	
 	
 	if global_position.x < 0:
+		Global.update_time()
 		get_tree().change_scene("res://Scenes/game over.tscn")
 
 
@@ -25,4 +27,5 @@ func _on_Hitbox_area_entered(area):
 		area.get_parent().queue_free()
 		queue_free()
 	if area.is_in_group("Player"):
+		Global.update_time()
 		get_tree().change_scene("res://Scenes/game over.tscn")
