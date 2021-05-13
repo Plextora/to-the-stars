@@ -1,14 +1,21 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Picture/game over.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Continue.gd" type="Script" id=2]
 [ext_resource path="res://Fonts/pixelated.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://Scenes/Score.tscn" type="PackedScene" id=4]
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.960784, 0.141176, 0.141176, 1 )
+
+[sub_resource type="DynamicFont" id=2]
 size = 200
 outline_size = 10
 outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 108
 font_data = ExtResource( 3 )
 
 [node name="gameover" type="Sprite"]
@@ -25,7 +32,8 @@ margin_left = -386.0
 margin_top = 83.0
 margin_right = 476.0
 margin_bottom = 500.0
-custom_fonts/font = SubResource( 1 )
+custom_styles/hover = SubResource( 1 )
+custom_fonts/font = SubResource( 2 )
 text = "Continue?"
 script = ExtResource( 2 )
 __meta__ = {
@@ -33,5 +41,27 @@ __meta__ = {
 }
 
 [node name="CanvasLayer" parent="." instance=ExtResource( 4 )]
+
+[node name="Label" type="Label" parent="."]
+margin_left = -1291.3
+margin_top = 566.667
+margin_right = -419.305
+margin_bottom = 999.667
+custom_fonts/font = SubResource( 3 )
+text = "you  survived  for:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="."]
+margin_left = 620.498
+margin_top = 566.667
+margin_right = 1492.5
+margin_bottom = 999.667
+custom_fonts/font = SubResource( 3 )
+text = "seconds"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [connection signal="pressed" from="Button" to="Button" method="_on_Button_pressed"]
