@@ -3,7 +3,7 @@
 [ext_resource path="res://Fonts/pixelated.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Scripts/PlayButton.gd" type="Script" id=2]
 [ext_resource path="res://Scripts/FullscreenButton.gd" type="Script" id=3]
-[ext_resource path="res://Videos/to the stars background.ogv" type="VideoStream" id=4]
+[ext_resource path="res://Picture/to the stars menu background.png" type="Texture" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 font_data = ExtResource( 1 )
@@ -13,6 +13,11 @@ font_data = ExtResource( 1 )
 
 [node name="MainMenu" type="Node2D"]
 
+[node name="to the stars menu background" type="Sprite" parent="."]
+position = Vector2( 81, 45 )
+scale = Vector2( 0.133107, 0.125326 )
+texture = ExtResource( 4 )
+
 [node name="Control" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -20,17 +25,6 @@ margin_left = -23.0
 margin_top = -8.0
 margin_right = -23.0
 margin_bottom = -8.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="VideoPlayer" type="VideoPlayer" parent="Control"]
-margin_left = 23.0
-margin_top = 8.0
-margin_right = 183.0
-margin_bottom = 97.0
-stream = ExtResource( 4 )
-autoplay = true
 __meta__ = {
 "_edit_use_anchors_": false
 }

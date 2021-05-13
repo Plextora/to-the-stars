@@ -1,17 +1,36 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Sprites/background.png" type="Texture" id=2]
+[ext_resource path="res://Picture/space background.png" type="Texture" id=2]
 [ext_resource path="res://Scripts/World.gd" type="Script" id=3]
 [ext_resource path="res://Scenes/Enemy_Gen.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Music/Teminite & MDK - Space Invaders.mp3" type="AudioStream" id=5]
+[ext_resource path="res://Fonts/pixelated.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://Scripts/Stats.gd" type="Script" id=7]
+[ext_resource path="res://Scripts/Stage_2.gd" type="Script" id=8]
+[ext_resource path="res://Scripts/Stage_3.gd" type="Script" id=9]
+[ext_resource path="res://Sounds/shoot.wav" type="AudioStream" id=10]
+[ext_resource path="res://Scripts/Stage_4.gd" type="Script" id=11]
+[ext_resource path="res://Scripts/Stage_2_Reached.gd" type="Script" id=12]
+[ext_resource path="res://Scripts/Stage_4_Reached.gd" type="Script" id=13]
+[ext_resource path="res://Scripts/Stage_3_Reached.gd" type="Script" id=14]
+
+[sub_resource type="DynamicFont" id=1]
+size = 9
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 12
+outline_size = 3
+outline_color = Color( 0.929412, 0.137255, 0.137255, 1 )
+font_data = ExtResource( 6 )
 
 [node name="World" type="Node2D"]
 script = ExtResource( 3 )
 
 [node name="background" type="Sprite" parent="."]
-position = Vector2( 79, 44 )
-scale = Vector2( 0.195833, 0.195833 )
+position = Vector2( 85.0655, 43.0044 )
+scale = Vector2( 0.113199, 0.113199 )
 texture = ExtResource( 2 )
 
 [node name="Player" parent="." groups=[
@@ -19,14 +38,113 @@ texture = ExtResource( 2 )
 ] instance=ExtResource( 1 )]
 position = Vector2( 18, 0 )
 
+[node name="Shoot" type="AudioStreamPlayer2D" parent="Player"]
+position = Vector2( -18, 0 )
+stream = ExtResource( 10 )
+volume_db = -1.5
+pitch_scale = 1.05
+
 [node name="Enemy_Gen" parent="." instance=ExtResource( 4 )]
 position = Vector2( 185, 40 )
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-position = Vector2( 77, 41 )
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchor_top = 0.633
+anchor_bottom = 1.0
+custom_constants/margin_right = 10
+custom_constants/margin_top = 10
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 10
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 39.0
+margin_bottom = 36.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer/HBoxContainer"]
+margin_right = 12.0
+margin_bottom = 26.0
+alignment = 2
+
+[node name="FPS" type="Label" parent="CanvasLayer/MarginContainer/HBoxContainer/VBoxContainer"]
+margin_top = 15.0
+margin_right = 12.0
+margin_bottom = 26.0
+custom_fonts/font = SubResource( 1 )
+text = "FPS"
+
+[node name="Stage_2" type="Timer" parent="."]
+wait_time = 60.0
+one_shot = true
+autostart = true
+script = ExtResource( 8 )
+
+[node name="Stage_3" type="Timer" parent="."]
+wait_time = 180.0
+one_shot = true
+autostart = true
+script = ExtResource( 9 )
+
+[node name="Stage_4" type="Timer" parent="."]
+wait_time = 360.0
+one_shot = true
+autostart = true
+script = ExtResource( 11 )
+
+[node name="Music" type="AudioStreamPlayer2D" parent="."]
+position = Vector2( 77, 37 )
 stream = ExtResource( 5 )
+volume_db = -1.0
 autoplay = true
+
+[node name="Stage_2_Reached" type="Label" parent="."]
+margin_left = 64.0
+margin_top = 4.0
+margin_right = 153.0
+margin_bottom = 18.0
+custom_fonts/font = SubResource( 3 )
+text = "STAGE 2 REACHED!"
+script = ExtResource( 12 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Stage_3_Reached" type="Label" parent="."]
+margin_left = 64.0
+margin_top = 4.0
+margin_right = 153.0
+margin_bottom = 18.0
+custom_fonts/font = SubResource( 3 )
+text = "STAGE 3 REACHED!"
+script = ExtResource( 14 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Stage_4_Reached" type="Label" parent="."]
+margin_left = 64.0
+margin_top = 4.0
+margin_right = 153.0
+margin_bottom = 18.0
+custom_fonts/font = SubResource( 3 )
+text = "STAGE 4 REACHED!"
+script = ExtResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [connection signal="tree_entered" from="." to="." method="_on_World_tree_entered"]
 [connection signal="create_bullet" from="Player" to="." method="_on_Player_create_bullet"]
 [connection signal="create_enemy" from="Enemy_Gen" to="." method="_on_Enemy_Gen_create_enemy"]
+[connection signal="timeout" from="Stage_2" to="Stage_2" method="_on_Stage_2_timeout"]
+[connection signal="timeout" from="Stage_2" to="Stage_2_Reached" method="_on_Stage_2_timeout"]
+[connection signal="timeout" from="Stage_3" to="Stage_3" method="_on_Stage_3_timeout"]
+[connection signal="timeout" from="Stage_3" to="Stage_3_Reached" method="_on_Stage_3_timeout"]
+[connection signal="timeout" from="Stage_4" to="Stage_4" method="_on_Stage_4_timeout"]
+[connection signal="timeout" from="Stage_4" to="Stage_4_Reached" method="_on_Stage_4_timeout"]

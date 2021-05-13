@@ -22,3 +22,8 @@ func set_visible(is_visible):
 
 func _on_Fullscreen_pressed():
 	OS.window_fullscreen = !OS.window_fullscreen # set the game to fullscreen
+
+
+func _on_BackToMenu_pressed():
+	get_tree().change_scene("res://Scenes/MainMenu.tscn")
+	set_visible(false)
