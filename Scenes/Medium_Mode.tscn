@@ -1,0 +1,78 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Picture/space background.png" type="Texture" id=2]
+[ext_resource path="res://Scripts/Medium_Mode.gd" type="Script" id=3]
+[ext_resource path="res://Scenes/Enemy_Gen.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Music/Teminite & MDK - Space Invaders.mp3" type="AudioStream" id=5]
+[ext_resource path="res://Fonts/pixelated.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://Scripts/Stats.gd" type="Script" id=7]
+[ext_resource path="res://Sounds/shoot.wav" type="AudioStream" id=10]
+
+[sub_resource type="DynamicFont" id=1]
+size = 9
+font_data = ExtResource( 6 )
+
+[node name="World" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="background" type="Sprite" parent="."]
+position = Vector2( 85.0655, 43.0044 )
+scale = Vector2( 0.113199, 0.113199 )
+texture = ExtResource( 2 )
+
+[node name="Player" parent="." groups=[
+"Player",
+] instance=ExtResource( 1 )]
+position = Vector2( 18, 0 )
+
+[node name="Shoot" type="AudioStreamPlayer2D" parent="Player"]
+position = Vector2( -18, 0 )
+stream = ExtResource( 10 )
+volume_db = -1.5
+pitch_scale = 1.05
+
+[node name="Enemy_Gen" parent="." instance=ExtResource( 4 )]
+position = Vector2( 185, 40 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchor_top = 0.633
+anchor_bottom = 1.0
+custom_constants/margin_right = 10
+custom_constants/margin_top = 10
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 10
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 22.0
+margin_bottom = 23.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer/HBoxContainer"]
+margin_right = 12.0
+margin_bottom = 13.0
+alignment = 2
+
+[node name="FPS" type="Label" parent="CanvasLayer/MarginContainer/HBoxContainer/VBoxContainer"]
+margin_top = 2.0
+margin_right = 12.0
+margin_bottom = 13.0
+custom_fonts/font = SubResource( 1 )
+text = "FPS"
+
+[node name="Music" type="AudioStreamPlayer2D" parent="."]
+position = Vector2( 77, 37 )
+stream = ExtResource( 5 )
+volume_db = -1.0
+autoplay = true
+
+[connection signal="tree_entered" from="." to="." method="_on_World_tree_entered"]
+[connection signal="create_bullet" from="Player" to="." method="_on_Player_create_bullet"]
+[connection signal="create_enemy" from="Enemy_Gen" to="." method="_on_Enemy_Gen_create_enemy"]
